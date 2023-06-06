@@ -1,0 +1,28 @@
+apiVersion: kubescheduler.config.k8s.io/v1alpha1
+kind: KubeSchedulerConfiguration
+schedulerName: custom-scheduler
+leaderElection:
+  leaderElect: false
+  lockObjectName: custom-scheduler
+  lockObjectNamespace: kube-system
+plugins:
+  #      preFilter:
+  #        enabled:
+  #        - name: "custom-plugin"
+  #      filter:
+  #        enabled:
+  #        - name: "custom-plugin"
+  preBind:
+    enabled:
+      - name: "custom-plugin"
+  bind:
+    enabled:
+      - name: "custom-plugin"
+    disabled:
+      - name: "DefaultBinder"
+pluginConfig:
+  - name: "custom-plugin"
+    args:
+      favorite_color: "#326CE5"
+      favorite_number: 7
+      thanks_to: "thockin"
